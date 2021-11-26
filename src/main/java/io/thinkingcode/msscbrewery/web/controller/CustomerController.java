@@ -2,6 +2,7 @@ package io.thinkingcode.msscbrewery.web.controller;
 
 import io.thinkingcode.msscbrewery.services.CustomerService;
 import io.thinkingcode.msscbrewery.web.model.CustomerDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @Autowired
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }

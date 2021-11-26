@@ -16,4 +16,21 @@ public class BeerServiceImpl implements BeerService{
                 .beerStyle("Oscura")
                 .build();
     }
+
+    @Override
+    public BeerDto saveNewBeer(BeerDto beerDto) {
+        return BeerDto.builder()
+                .id(UUID.randomUUID())
+                .build();
+    }
+
+    @Override
+    public void updateBeer(UUID beerId, BeerDto beerDto) {
+        //
+    }
+
+    @Override
+    public void deleteById(UUID beerId) {
+        //
+    }
 }
