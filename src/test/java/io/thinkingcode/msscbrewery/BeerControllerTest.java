@@ -46,7 +46,7 @@ public class BeerControllerTest {
     }
 
     @Test
-    public void getBeer() throws Exception{
+    public void handleGet() throws Exception{
         BDDMockito.given(beerService.getBeerById(Mockito.any(UUID.class))).willReturn(vadlidBeer);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/beer/" + vadlidBeer.getId().toString()).accept(MediaType.APPLICATION_JSON))
@@ -76,7 +76,7 @@ public class BeerControllerTest {
     }
 
     @Test
-    public void handleUpdate() throws Exception {
+    public void handlePut() throws Exception {
         // given
         BeerDto beerDto = vadlidBeer;
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
