@@ -1,6 +1,5 @@
 package io.thinkingcode.msscbrewery.services.v2;
 
-import io.thinkingcode.msscbrewery.web.model.BeerDto;
 import io.thinkingcode.msscbrewery.web.model.v2.BeerDtoV2;
 
 import java.util.UUID;

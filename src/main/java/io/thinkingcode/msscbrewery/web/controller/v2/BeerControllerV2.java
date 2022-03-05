@@ -2,14 +2,22 @@ package io.thinkingcode.msscbrewery.web.controller.v2;
 
 import io.thinkingcode.msscbrewery.services.v2.BeerServiceV2;
 import io.thinkingcode.msscbrewery.web.model.v2.BeerDtoV2;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+@Validated
 @RequestMapping("/api/v2/beer")
 @RestController
 public class BeerControllerV2 {
@@ -22,12 +30,12 @@ public class BeerControllerV2 {
     }
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDtoV2> handleGet(@PathVariable("beerId") UUID beerId){
+    public ResponseEntity<BeerDtoV2> handleGet(@NotNull @PathVariable("beerId") UUID beerId){
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> handlePost(@RequestBody BeerDtoV2 beerDto){
+    public ResponseEntity<HttpStatus> handlePost(@Valid @NotNull @RequestBody BeerDtoV2 beerDto){
         BeerDtoV2 saveDto = beerService.saveNewBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location","/api/v2/beer/" + saveDto.getId().toString());
@@ -36,7 +44,7 @@ public class BeerControllerV2 {
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity<HttpStatus> handlePut(@PathVariable("beerId") UUID beerId,@RequestBody BeerDtoV2 beerDto){
+    public ResponseEntity<HttpStatus> handlePut(@PathVariable("beerId") UUID beerId,@Valid @RequestBody BeerDtoV2 beerDto){
         beerService.updateBeer(beerId,beerDto);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -47,4 +55,5 @@ public class BeerControllerV2 {
     public void handleDelete(@PathVariable("beerId") UUID beerId){
         beerService.deleteById(beerId);
     }
+
 }
